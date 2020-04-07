@@ -1,35 +1,35 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
+    <energy-tracker-chart :generationmix="generationmix"></energy-tracker-chart>
     
   </div>
 </template>
 
 <script>
-
-
+import EnergyTrackerChart from './components/EnergyTrackerChart'
 export default {
   name: 'App',
   data() {
     return {
-      from: "",
-      to: "",
-      generationmix: []
+      from: null,
+      to: null,
+      generationmix: null
+      
     }
   },
   components: {
-    
+    'energy-tracker-chart': EnergyTrackerChart
   },
   mounted(){
     fetch('https://api.carbonintensity.org.uk/generation')
     .then(response => response.json())
-    .then((result) => {
-      // console.log(result);
+    .then(result => {
       this.from = result.data.from;
       this.to = result.data.to;
       this.generationmix = result.data.generationmix;
-      console.log(this.from);
-      console.log(this.to);
+      // console.log(this.from);
+      // console.log(this.to);
       console.log(this.generationmix);
     })
 
